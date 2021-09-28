@@ -4,16 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.rusdevapp.epic.databinding.ActivityMainBinding;
+import com.rusdevapp.epic.databinding.ActivityListBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    ActivityListBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
 }
