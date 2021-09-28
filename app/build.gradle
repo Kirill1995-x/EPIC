@@ -4,12 +4,12 @@ plugins {
 
 android {
     compileSdkVersion 31
-    buildToolsVersion "31.0.0"
+    buildToolsVersion "30.0.0"
 
     defaultConfig {
         applicationId "com.rusdevapp.epic"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -39,6 +39,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit-converters:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.recyclerview:recyclerview:1.3.0-alpha01'
     testImplementation 'junit:junit:4.+'
