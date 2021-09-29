@@ -60,7 +60,9 @@ public class EPICAdapter extends RecyclerView.Adapter<EPICAdapter.ViewHolder>{
         void Bind(ModelNASA modelNASA)
         {
             ConstraintLayout constraintLayout = itemView.findViewById(R.id.clElement);
+            TextView tvImage = itemView.findViewById(R.id.tvImage);
             TextView tvDate = itemView.findViewById(R.id.tvDate);
+            tvImage.setText(modelNASA.getImage());
             tvDate.setText(modelNASA.getConvertDate());
             constraintLayout.setOnClickListener(this);
         }
@@ -70,9 +72,10 @@ public class EPICAdapter extends RecyclerView.Adapter<EPICAdapter.ViewHolder>{
             switch (view.getId())
             {
                 case R.id.clElement:
+                    int position = getAbsoluteAdapterPosition();
                     Intent intent = new Intent(context, MainActivity.class);
-                    intent.putExtra("date", list.get(getAbsoluteAdapterPosition()).getDate());
-                    intent.putExtra("name", list.get(getAbsoluteAdapterPosition()).getName());
+                    intent.putExtra("date", list.get(position).getDateForURL());
+                    intent.putExtra("image", list.get(position).getImage());
                     context.startActivity(intent);
                     break;
                 default:

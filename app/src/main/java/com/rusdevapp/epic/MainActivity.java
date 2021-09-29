@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.rusdevapp.epic.databinding.ActivityMainBinding;
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,10 +19,13 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Bundle bundle = getIntent().getExtras();
-        String[]date = bundle.getString("date").split("-");
-        String convert_date=date[2]+"/"+date[1]+"/"+date[0]+"/jpg/";
-        String name=bundle.getString("name")+".jpg?api_key=";
-        String url = URI+convert_date+name+API_KEY;
-        Picasso.get().load(url).into(binding.imgPhoto);
+        String date = bundle.getString("date");
+        String name=bundle.getString("image")+".jpg?api_key=";
+        String url = URI+date+"/jpg/"+name+API_KEY;
+        Glide.with(this)
+             .load(url)
+             .placeholder(R.drawable.progress_animation)
+             .error(R.drawable.ic_error)
+             .into(binding.imgPhoto);
     }
 }

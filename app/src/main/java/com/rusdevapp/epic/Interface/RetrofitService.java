@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface RetrofitService {
 
-    @GET("all?api_key=LwmzpbFYfehtgkUaH8qsLK3Qeai6qZtqtDq2Pvht")
+    @GET("natural?api_key=LwmzpbFYfehtgkUaH8qsLK3Qeai6qZtqtDq2Pvht")
     public Call<List<ModelNASA>> getEPIC();
 }

@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ListActivity extends AppCompatActivity {
 
     private ActivityListBinding binding;
-    private final String BASE_URL="https://api.nasa.gov/EPIC/api/natural/";
+    private final String BASE_URL="https://api.nasa.gov/EPIC/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
