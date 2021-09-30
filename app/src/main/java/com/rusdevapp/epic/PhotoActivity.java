@@ -5,23 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
-import com.rusdevapp.epic.databinding.ActivityMainBinding;
+import com.rusdevapp.epic.databinding.ActivityPhotoBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class PhotoActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
-    private final String URI="https://api.nasa.gov/EPIC/archive/natural/";
-    private final String API_KEY="LwmzpbFYfehtgkUaH8qsLK3Qeai6qZtqtDq2Pvht";
+    private ActivityPhotoBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
+        binding=ActivityPhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Bundle bundle = getIntent().getExtras();
         String date = bundle.getString("date");
-        String name=bundle.getString("image")+".jpg?api_key=";
-        String url = URI+date+"/jpg/"+name+API_KEY;
+        String name = bundle.getString("image")+".jpg?api_key=";
+        String url = App.PHOTO_URL+date+"/jpg/"+name+App.API_KEY;
         Glide.with(this)
              .load(url)
              .placeholder(R.drawable.progress_animation)

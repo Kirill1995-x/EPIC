@@ -1,12 +1,11 @@
 package com.rusdevapp.epic.Model;
 
-public class ModelNASA
+public class ModelListOfPhoto
 {
     private String date;
     private String image;
 
-    ModelNASA(String date, String image)
-    {
+    public ModelListOfPhoto(String date, String image) {
         this.date = date;
         this.image = image;
     }
@@ -18,20 +17,19 @@ public class ModelNASA
     public String getConvertDate()
     {
         String[] array_date_and_time = date.split(" ");
-        String[] array_date=array_date_and_time[0].split("-");
-        return "Date: "+array_date[2]+"."+array_date[1]+"."+array_date[0]+
-                " Time: "+array_date_and_time[1];
+        String[] date = array_date_and_time[0].split("-");
+        return "Дата: "+date[2]+"."+date[1]+"."+date[0]+
+               "Время: "+array_date_and_time[1];
     }
 
-    public String getDateForURL()
+    public String getUrlDate()
     {
         String[] array_date_and_time = date.split(" ");
-        String[] array_date = array_date_and_time[0].split("-");
-        return array_date[0]+"/"+array_date[1]+"/"+array_date[2]+"/";
+        String[] date = array_date_and_time[0].split("-");
+        return date[0]+"/"+date[1]+"/"+date[2];
     }
 
     public String getImage() {
         return image;
     }
-
 }
