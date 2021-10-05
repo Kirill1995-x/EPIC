@@ -16,14 +16,15 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityPhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Bundle bundle = getIntent().getExtras();
-        String date = bundle.getString("date");
-        String name = bundle.getString("image")+".jpg?api_key=";
-        String url = App.PHOTO_URL+date+"/jpg/"+name+App.API_KEY;
-        Glide.with(this)
-             .load(url)
-             .placeholder(R.drawable.progress_animation)
-             .error(R.drawable.ic_error)
-             .into(binding.imgPhoto);
+            Bundle bundle = getIntent().getExtras();
+            String date = bundle.getString("date");
+            String name = bundle.getString("image") + ".jpg?api_key=";
+            String url = App.PHOTO_URL + date + "/jpg/" + name + App.API_KEY;
+            Glide.with(this)
+                    .load(url)
+                    .placeholder(R.drawable.progress_animation)
+                    .error(R.drawable.ic_error)
+                    .into(binding.imgPhoto);
+            binding.tvPhoto.setText(bundle.getString("image"));
     }
 }

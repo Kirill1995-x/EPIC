@@ -1,6 +1,9 @@
 package com.rusdevapp.epic.Model;
 
-public class ModelListOfDate
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ModelListOfDate implements Parcelable
 {
     private String date;
 
@@ -16,6 +19,32 @@ public class ModelListOfDate
     public String getConvertDate()
     {
         String[] array_date=date.split("-");
-        return "Date: "+array_date[2]+"."+array_date[1]+"."+array_date[0];
+        return "Дата: "+array_date[2]+"."+array_date[1]+"."+array_date[0];
+    }
+
+    protected ModelListOfDate(Parcel in) {
+        date = in.readString();
+    }
+
+    public static final Creator<ModelListOfDate> CREATOR = new Creator<ModelListOfDate>() {
+        @Override
+        public ModelListOfDate createFromParcel(Parcel in) {
+            return new ModelListOfDate(in);
+        }
+
+        @Override
+        public ModelListOfDate[] newArray(int size) {
+            return new ModelListOfDate[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(date);
     }
 }

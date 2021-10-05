@@ -21,6 +21,6 @@ public class ViewHolderListOfPhoto extends RecyclerView.ViewHolder {
         TextView tvImage = itemView.findViewById(R.id.tvImage);
         TextView tvDateAndTime = itemView.findViewById(R.id.tvDateAndTime);
         tvImage.setText(modelListOfPhoto.getImage());
-        tvDateAndTime.setText(modelListOfPhoto.getConvertDate());
+        tvDateAndTime.setText(modelListOfPhoto.getTime());
     }
 }

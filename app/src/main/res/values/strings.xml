@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EPIC</string>
+    <string name="title_list_of_dates">Список дат</string>
+    <string name="title_list_of_photos">Список фото</string>
 </resources>

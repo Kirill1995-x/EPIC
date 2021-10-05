@@ -1,6 +1,9 @@
 package com.rusdevapp.epic.Model;
 
-public class ModelListOfPhoto
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ModelListOfPhoto implements Parcelable
 {
     private String date;
     private String image;
@@ -10,16 +13,42 @@ public class ModelListOfPhoto
         this.image = image;
     }
 
+    protected ModelListOfPhoto(Parcel in) {
+        date = in.readString();
+        image = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(date);
+        dest.writeString(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ModelListOfPhoto> CREATOR = new Creator<ModelListOfPhoto>() {
+        @Override
+        public ModelListOfPhoto createFromParcel(Parcel in) {
+            return new ModelListOfPhoto(in);
+        }
+
+        @Override
+        public ModelListOfPhoto[] newArray(int size) {
+            return new ModelListOfPhoto[size];
+        }
+    };
+
     public String getDate() {
         return date;
     }
 
-    public String getConvertDate()
+    public String getTime()
     {
-        String[] array_date_and_time = date.split(" ");
-        String[] date = array_date_and_time[0].split("-");
-        return "Дата: "+date[2]+"."+date[1]+"."+date[0]+
-               "Время: "+array_date_and_time[1];
+        String[] array_time = date.split(" ");
+        return "Время: "+array_time[1];
     }
 
     public String getUrlDate()
