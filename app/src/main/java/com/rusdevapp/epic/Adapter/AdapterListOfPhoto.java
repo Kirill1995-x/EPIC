@@ -6,22 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.rusdevapp.epic.Model.ModelListOfPhoto;
 import com.rusdevapp.epic.PhotoActivity;
 import com.rusdevapp.epic.R;
 import com.rusdevapp.epic.ViewHolder.ViewHolderListOfPhoto;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public class AdapterListOfPhoto extends RecyclerView.Adapter<ViewHolderListOfPhoto>
 {
 
-    private List<ModelListOfPhoto> list;
+    private ArrayList<ModelListOfPhoto> arrayList;
     private Context context;
 
-    public AdapterListOfPhoto(List<ModelListOfPhoto> list, Context context) {
-        this.list = list;
+    public AdapterListOfPhoto(ArrayList<ModelListOfPhoto> arrayList, Context context) {
+        this.arrayList = arrayList;
         this.context = context;
     }
 
@@ -35,8 +33,8 @@ public class AdapterListOfPhoto extends RecyclerView.Adapter<ViewHolderListOfPho
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
                 Intent intent = new Intent(context, PhotoActivity.class);
-                intent.putExtra("image", list.get(position).getImage());
-                intent.putExtra("date", list.get(position).getUrlDate());
+                intent.putExtra("image", arrayList.get(position).getImage());
+                intent.putExtra("date", arrayList.get(position).getUrlDate());
                 context.startActivity(intent);
             }
         });
@@ -45,11 +43,11 @@ public class AdapterListOfPhoto extends RecyclerView.Adapter<ViewHolderListOfPho
 
     @Override
     public void onBindViewHolder(ViewHolderListOfPhoto holder, int position) {
-        holder.bind(list.get(position));
+        holder.bind(arrayList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return arrayList.size();
     }
 }

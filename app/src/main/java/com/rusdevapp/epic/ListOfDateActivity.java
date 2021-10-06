@@ -1,7 +1,11 @@
 package com.rusdevapp.epic;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -22,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ListOfDateActivity extends AppCompatActivity {
 
     private ActivityListOfDateBinding binding;
+    private ArrayList<ModelListOfDate> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +34,21 @@ public class ListOfDateActivity extends AppCompatActivity {
         binding = ActivityListOfDateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.rvListOfDate.setLayoutManager(new LinearLayoutManager(this));
-        binding.pbListOfDate.setVisibility(View.VISIBLE);
-        getListOfDate();
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+            binding.rvListOfDate.setLayoutManager(new LinearLayoutManager(this));
+        else
+            binding.rvListOfDate.setLayoutManager(new GridLayoutManager(this,2));
+        //---
+        if(savedInstanceState==null) {
+            binding.pbListOfDate.setVisibility(View.VISIBLE);
+            getListOfDate();
+        }
+        else
+        {
+            arrayList = savedInstanceState.getParcelableArrayList("list_of_dates");
+            binding.rvListOfDate.setAdapter(new AdapterListOfDate(arrayList,
+                    ListOfDateActivity.this));
+        }
     }
 
     private void getListOfDate()
@@ -41,14 +58,19 @@ public class ListOfDateActivity extends AppCompatActivity {
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build()
                                 .create(RetrofitService.class);
-        retrofitService.getListOfDate(App.API_KEY).enqueue(new Callback<List<ModelListOfDate>>() {
+        retrofitService.getListOfDate(App.API_KEY)
+                       .enqueue(new Callback<ArrayList<ModelListOfDate>>()
+        {
             @Override
-            public void onResponse(Call<List<ModelListOfDate>> call, Response<List<ModelListOfDate>> response) {
+            public void onResponse(Call<ArrayList<ModelListOfDate>> call,
+                                   Response<ArrayList<ModelListOfDate>> response)
+            {
                 binding.pbListOfDate.setVisibility(View.GONE);
                 if(response.isSuccessful())
                 {
-                   List<ModelListOfDate> list = response.body();
-                   binding.rvListOfDate.setAdapter(new AdapterListOfDate(list, ListOfDateActivity.this));
+                   arrayList = response.body();
+                   binding.rvListOfDate.setAdapter(new AdapterListOfDate(arrayList,
+                                                  ListOfDateActivity.this));
                 }
                 else
                 {
@@ -58,10 +80,17 @@ public class ListOfDateActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<ModelListOfDate>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<ModelListOfDate>> call, Throwable t) {
                 binding.pbListOfDate.setVisibility(View.GONE);
-                Toast.makeText(ListOfDateActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(ListOfDateActivity.this, t.getMessage(), Toast.LENGTH_LONG)
+                     .show();
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("list_of_dates", arrayList);
     }
 }

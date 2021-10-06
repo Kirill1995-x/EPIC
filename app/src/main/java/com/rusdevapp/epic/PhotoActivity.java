@@ -1,13 +1,17 @@
 package com.rusdevapp.epic;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.app.WallpaperManager;
 
 import com.bumptech.glide.Glide;
 import com.rusdevapp.epic.databinding.ActivityPhotoBinding;
 
-public class PhotoActivity extends AppCompatActivity {
+import java.io.IOException;
+
+public class PhotoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityPhotoBinding binding;
 
@@ -26,5 +30,31 @@ public class PhotoActivity extends AppCompatActivity {
                     .error(R.drawable.ic_error)
                     .into(binding.imgPhoto);
             binding.tvPhoto.setText(bundle.getString("image"));
+        binding.btnSetPhoto.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.btnSetPhoto:
+                setPhoto();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setPhoto() {
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
+        try {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) binding.imgPhoto.getDrawable();
+            wallpaperManager.setBitmap(bitmapDrawable.getBitmap());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

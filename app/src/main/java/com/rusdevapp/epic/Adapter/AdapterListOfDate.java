@@ -5,28 +5,23 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.rusdevapp.epic.ListOfPhotoActivity;
-import com.rusdevapp.epic.PhotoActivity;
 import com.rusdevapp.epic.Model.ModelListOfDate;
 import com.rusdevapp.epic.R;
 import com.rusdevapp.epic.ViewHolder.ViewHolderListOfDate;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public class AdapterListOfDate extends RecyclerView.Adapter<ViewHolderListOfDate>
 {
 
-    private List<ModelListOfDate> list;
+    private ArrayList<ModelListOfDate> arrayList;
     private Context context;
 
-    public AdapterListOfDate(List<ModelListOfDate> list, Context context)
+    public AdapterListOfDate(ArrayList<ModelListOfDate> arrayList, Context context)
     {
-        this.list = list;
+        this.arrayList = arrayList;
         this.context = context;
     }
 
@@ -41,7 +36,7 @@ public class AdapterListOfDate extends RecyclerView.Adapter<ViewHolderListOfDate
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
                 Intent intent = new Intent(context, ListOfPhotoActivity.class);
-                intent.putExtra("date", list.get(position).getDate());
+                intent.putExtra("date", arrayList.get(position).getDate());
                 context.startActivity(intent);
             }
         });
@@ -50,11 +45,11 @@ public class AdapterListOfDate extends RecyclerView.Adapter<ViewHolderListOfDate
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderListOfDate holder, int position) {
-        holder.bind(list.get(position));
+        holder.bind(arrayList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return arrayList.size();
     }
 }
