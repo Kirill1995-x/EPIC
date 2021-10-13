@@ -1,1 +1,0 @@
-# Earth Polychromatic Imaging Camera
